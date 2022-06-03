@@ -1,0 +1,8 @@
+%Aluna: Talyta Scaramuzzo --- TIA: 32079915
+translitera(fraseCir,fraseOc, listaCir, listaOc).    
+fraseCir = БЕЛГРАДСКИЙ УНИВЕРСИТЕТ,
+fraseOc = UNIVERSIDADE DE BELGRADO,
+listaCir= [НИВЕРСИТЕТ У БЕЛГРАДУ],
+listaOc = [UNIVERSIDADE DE BELGRADO],
+fraseCir = fraseOc,
+listatraduz = [H=U,N=И,S=И,B=I,I=T,V=E,D=E,E=P,R=C,A=T,DE=Y,B=Б,E=E,L=Л,G=Г,R=P,A=A,D=Д,O=Y].

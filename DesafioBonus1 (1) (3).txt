@@ -1,0 +1,19 @@
+;Aluna: Talyta Scaramuzzo --- TIA: 32079915
+(define (fat n) ;definindo funcao fatorial;
+	(if(=n 0)1(*n(fat(- n 1)))))
+
+(define (pot a b) ;definindo funcao potencia;
+	(if(=b 0)1(* a(pot a(-b 1)))))
+
+(define PI 3.1415926) ;definindo valor de pi;
+
+(define (fortaux x n)
+  (if(=n 0) 1 (+(/(pot x(+(2n)1))(fat(+(2n)1)))(fortaux x(-n 1)))))
+
+(define (senoh x) ;definindo funcao seno x;
+	(senohaux(grausrad x)99))
+(senoh 180)
+
+(define (grausrad x)(/ (* x PI) 180)) ;definindo funcao para transformar graus em radianos;
+
+	

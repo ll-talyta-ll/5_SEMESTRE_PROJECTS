@@ -1,0 +1,9 @@
+(define (transcription z t) (if (null? z) (append t '( )) 
+  (if (equal? (car z) "T") (transcription (cdr z) (append t '("A"))) 
+      (if (equal? (car z) "G") (transcription (cdr z) (append t '("C"))) 
+          (if (equal? (car z) "A") (transcription (cdr z) (append t '("U"))) 
+              (if (equal? (car z) "C") (transcription (cdr z) (append t '("G"))) 
+                  (print "Erro, tente novamente :)")))))))
+
+(print (transcription '( "T" "A" "G" "C" ) '()))
+

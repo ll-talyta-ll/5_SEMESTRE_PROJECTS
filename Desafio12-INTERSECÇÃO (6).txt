@@ -1,0 +1,6 @@
+%Aluna: Talyta Scaramuzzo --- TIA: 32079915
+%interseccao(X1,X2,X3,X4,X5,Y6) %(X5,X6) representa os valores de um intervalo que é a intersecção 
+%dos intervalos unidimensionais (X1,X2) e (X3,x4).  
+%Predicado com as regras
+inter(X1,X2,X3,X4,X5,Y6):- intervalo(X1,X2,X5), intervalo(X3,X4,Y6).
+intervalo(D,E,Interg):- Interg is (D+E)/2.

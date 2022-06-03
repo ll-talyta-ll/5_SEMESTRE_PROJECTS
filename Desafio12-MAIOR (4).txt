@@ -1,0 +1,15 @@
+%Talyta Scaramuzzo -- TIA: 32079915
+%maior(A,B,C,M) % M é o maior entre três números A, B e C  
+%Predicados com regras
+maiorelemento(A,B,C,M):- A>B,A>C,M is A.
+maiorelemento(A,B,C,M):- B>A,B>C,M is B.
+maiorelemento(A,B,C,M):- C>A,C>B,M is C.
+maiorelemento(A,B,C,M):- B<A,A=C,M is B.
+maiorelemento(A,B,C,M):- A=B,C>A,M is C.
+maiorelemento(A,B,C,M):- C=B,B<A,M is A.
+maiorelemento(A,B,C,M):- A=B,C<A,M is A.
+maiorelemento(A,B,C,M):- C=A,C>B,M is C.
+maiorelemento(A,B,C,M):- C=B,C>A,M is B.
+maiorelemento(A,B,C,M):- B=A,A=C,M is A.
+
+%exemplo: ?-maiorelemento(5,3,4,M)

@@ -1,0 +1,13 @@
+%Aluna: Talyta Scaramuzzo --- TIA: 32079915
+%FATOS: vacinadoCOVID(Pessoa,Vacina,Doses), temDinheiro(Pessoa,Dinheiro), precoPassagem(País,Preço), precoEstadiaDia(País,Preço) pedeVacina(País,Vacina,DosesMínimas) e REGRA: podeViajar(Pessoa,País,Dias) % Uma pessoa pode viajar para um país 
+%se ela tem dinheiro para pagar a passagem e as estadias. Também e preciso ter o número mínimo de doses de uma das vacinas da COVID aceitas pelo país.
+%Predicado com as Regras
+vacinadoCOVID(Talyta,Pfizer, 4).
+temDinheiro(Talyta,3000). 
+precoPassagem(Alemanha,2000).
+precoEstadiaDia(Alemanha,600).
+pedeVacina(Alemanha,Pfizer,2). 
+conseguePagar(Pessoa, Estadia):- temDinheiro(Pessoa,Dinheiro), precoPassagem(Pais, PrecoPass), precoEstadiaDia(Pais, PrecoEstad), ( Dinheiro - PrecoPass - PrecoEstad >=0).
+vacinado(Pessoa,_,Pais):- vacinadoCOVID(Pessoa,_,DosesPessoa), pedeVacina(Pais,_,DosesVacina), (DosesPessoa>=DosesVacina).
+podeViajar(Pessoa,Pais, Estadia):- conseguePagar(Pessoa,Estadia), vacinado(Pessoa,_,Pais).
+%EXEMPLO: ?-podeViajar(Talyta,Alemanha,1). 

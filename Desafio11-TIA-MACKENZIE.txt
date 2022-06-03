@@ -1,0 +1,15 @@
+%Aluna: Talyta Scaramuzzo --- TIA: 32079915
+%FATOS: n1(Tia,Nota1,Disciplina), n2(Tia,Nota2,Disciplina), participacao(Tia,NotaPart), sub(Tia,Nota,Disciplina),pf(Tia,Nota,Disciplina), carga(Disciplina,Aulas), faltas(Tia,Faltas,Disciplina) 
+%REGRAS: fazSub(Tia,Disciplina),fazPF(Tia,Disciplina), aprovado1(Tia,Disciplina) 
+%Predicado:
+n1(32079915,7,Lfa).
+n2(32079915,5,Lfa).
+participacao(32079915,1).
+sub(32079915,6,Lfa).
+pf(32079915,6,Lfa).
+carga(Lfa,10).
+faltas(32079915,2,Lfa).
+%Regras:
+fazSub(TIA,Disciplina):- n1(TIA, Nota1, Disciplina), n2(TIA, Nota2, Disciplina),(Nota1=:=0; Nota2=:=0).
+fazPF(TIA,Disciplina):- n1(TIA, Nota1, Disciplina), n2(TIA, Nota2, Disciplina), carga(Disciplina,Aulas), faltas(TIA,Faltas,Disciplina), participacao(TIA,NotaPart), (Faltas=:>2);((Nota1+Nota2+(NotaPart/10))/2)<6).
+aprovado(TIA,Disciplina):- carga(Disciplina,Aulas), faltas(TIA,Faltas,Disciplina), n1(TIA, Nota1, Disciplina), n2(TIA, Nota2, Disciplina), participacao(TIA,NotaPart),((Nota1+Nota2+(NotaPart/10))/2)>=6),(Faltas=:=<2).

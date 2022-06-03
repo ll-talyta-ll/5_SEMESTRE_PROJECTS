@@ -1,0 +1,10 @@
+%Talyta Scaramuzzo --- TIA: 32079915.
+%raiz(A,B,C,X1,X2) %X1 e X2 são as raízes da equação de segundo grau de coeficientes A, B, C.
+%Predicados com as regras
+poli(A,B,C,RA,RB):-
+    raizA(A,B,C,RA), raizB(A,B,C,RB). 
+delta(A,B,C,Del) :-Del is ((B*B)-(4*A*C)). %formula do delta.
+raizA(A,B,C,X1) :-Del is 0, delta(A,B,C,Del), Del>=0, X1 is (-B+Del)/(2*A). %formula para achar valor de X1.
+raizB(A,B,C,X2) :-Del is 0, delta(A,B,C,Del), Del>=0, X2 is (-B-Del)/(2*A). %formula para achar valor de X2.
+
+%Exemplo: query: poli(1,1,1,RA,RB)

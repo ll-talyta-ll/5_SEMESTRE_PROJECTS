@@ -1,0 +1,125 @@
+;Aluna: Talyta Scaramuzzo ---TIA:32079915
+;Turma: 05D
+;SUPER DESAFIO 
+;PARADIGMAS DE LINGUAGEM DE PROGRAMAÇÃO
+
+;Definindo as linhas do mêtro.
+(define azul (list  "tucuruvi" "paradaInglesa" "jardimSaopaulo" "santana" "carandiru" "portuguesa" "armenia" "luz" "tiradentes" "saoBento" "se" "japaoLiberdade" "saoJoaquim" "vergueiro" "paraiso" "anaRosa" "vilaMariana" "santaCruz""pracaDaarvore" "saude" "saoJudas" "conceicao" "jabaquara"))
+(define lilas (list "capaoRedondo" "campoLimpo" "vilaDasBelezas" "giovanniGronchi" "santoAmaro" "largoTiete" "adolfoPinheiro" "altodaboavista" "borbaGato" "brooklin" "eucaliptos" "moema""aacdservidor""hospitalsaopaulo" "santaCruz""chacaraKlabin"))
+(define amarela (list "vilaSonia" "saopauloMorumbi" "butanta" "pinheiros" "fariaLima" "fradiqueCoutinho" "oscarFreire" "paulista" "higienopolisMackenzie" "republica" "luz"))
+(define esmeralda (list "grajau" "primaveraInterlagos" "autodromo" "jurubatuba" "socorro" "santoAmaro" "granjaJulieta" "morumbi" "berrini""vilaOlimpia" "cidadeJardim" "hebraicaReboucas" "pinheiros" "cidadeUniversitaria" " villalobosJaguare" "ceasa"))
+(define verde (list "vilaMadalena" "sumare" "clinicas" "paulista" "consolacao" "trianonMasp" "brigadeiro" "paraiso" "anaRosa" "chacaraKlabin" "santosImigrantes" "altodoIpiranga" "sacoma" "tamanduatei" "vilaPrudente"))
+
+;Inicializando a lista vazia.
+(define (null) '())
+;Criando uma lista com todas as linhas do metrô, para utilizar nos exercícios 2 e 3.
+(define (todasLinhas) (list (azul) (lilas) (amarela) (esmeralda) (verde)))
+  
+;Dada uma linha, indicar quantas estações tem.
+;Funcao para encontrar o tamanho da lista.
+(define (tamanho linha)
+  (if (null? linha) 0 (+ 1 (tamanho (cdr linha)))))
+
+;prints dos tamanhos de todas as linhas descritas acima.
+(print "O tamanho da Linha azul é:"(tamanho azul))
+(print "O tamanho da Linha lilas é:"(tamanho lilas))
+(print "O tamanho da Linha amarela é:"(tamanho amarela))
+(print "O tamanho da Linha esmeralda é:"(tamanho esmeralda))
+(print "O tamanho da Linha verde é:"(tamanho verde))
+
+;Dadas duas linhas, indicar onde se encontram.
+(define (encontros linha2 linha3 local)
+  (if (or (null? linha2) (null? linha3)) #f (if (member (car linha2) linha3) (append local (car linha2)) (encontros(cdr linha2) linha3 local))))
+  
+(define (mostraEncontro v w)
+  (if (not (encontros v w '())) (print "De acordo com as linhas selecionadas não apresenta-se encontro") (print "De acordo com as linhas selecionada o encontro esta entre as linhas esta no local:" (encontros v w '()))))
+
+;chamando os encontros (estações de encontros).
+(mostraEncontro amarela azul)
+(mostraEncontro amarela esmeralda)
+(mostraEncontro amarela verde)
+(mostraEncontro lilas esmeralda)
+(mostraEncontro lilas azul)
+(mostraEncontro lilas verde)
+(mostraEncontro azul verde)
+(mostraEncontro azul lilas)
+
+;Dadas duas estações, indicar por qual linha fazer o trajeto entre elas diretamente, sem baldeações.
+(define (semBaldeacoes v w estacao)
+  (cond ((and (member v azul) (member w azul)) (append estacao "azul"))
+        ((and (member v lilas) (member w lilas)) (append estacao "lilas"))
+        ((and (member v amarela) (member w amarela)) (append estacao "amarela"))
+        ((and (member v esmeralda) (member w esmeralda)) (append estacao "esmeralda"))
+        ((and (member v verde) (member w verde)) (append estacao "verde"))
+        (append estacao '())))
+
+(define (mostraSembaldeacoes v w)
+  (if (null? (semBaldeacoes v w '())) (print "Não apresenta caminhos possiveis entre " v " e " w " sem baldeação") (print "Têm-se o caminho direto entre " v " e " w " pela linha: " (semBaldeacoes v w '()))))
+
+;Chamando as linhas que pertecem caminho em apenas uma linha do metro.
+(mostraSembaldeacoes "vilaSonia" "fradiqueCoutinho")
+(mostraSembaldeacoes "butanta" "fradiqueCoutinho")
+(mostraSembaldeacoes "japaoLiberdade" "saoJoaquim")
+(mostraSembaldeacoes "saoBento" "vergueiro")
+(mostraSembaldeacoes "tiradentes" "santaCruz") 
+(mostraSembaldeacoes "tiradentes" "saoBento")
+(mostraSembaldeacoes "cidadeUniversitaria" "vilaOlimpia")
+(mostraSembaldeacoes "trianonMasp" "brigadeiro")
+
+
+;Dada uma estação, dizer a qual linha(s) pertence.
+(define (pertence w linha)
+    (if (null? linha) #f (if (equal? w (car linha)) #t (pertence w (cdr linha)))))
+
+(define (mostraEncontro w encontro)
+    (if (and (pertence w azul) (pertence w lilas)) (append encontro  "azul,lilas")
+        (if (and (pertence w azul) (pertence w verde)) (append encontro "azul,verde")
+            (if (and (pertence w azul) (pertence w amarela)) (append encontro "azul,amarela")
+                (if (and (pertence w amarela) (pertence w esmeralda)) (append encontro "amarela,esmeralda")  
+                    (if (and (pertence w amarela) (pertence w verde)) (append encontro "amarela,verde")
+                        (if (and (pertence w lilas) (pertence w esmeralda)) (append encontro "lilas,esmeralda")
+                            (if (and (pertence w lilas) (pertence w verde)) (append encontro "lilas,verde")
+                                #f )))))))) ;retorna falso para o que não apresentar mais de uma linha.
+
+(print(mostraEncontro "pinheiros" '()))
+(print(mostraEncontro "butanta" '()))
+(print(mostraEncontro "paulista" '()))
+(print(mostraEncontro "luz" '()))  
+
+(define (alelo w linhas)
+    (cond ((member w azul) (append linhas "azul"))
+          ((member w lilas) (append linhas "lilas"))
+          ((member w amarela) (append linhas "amarela"))
+          ((member w esmeralda) (append linhas "esmeralda"))
+          ((member w verde) (append linhas "verde"))
+          (print "A estacao não pertence a nenhuma das 5 linhas do nosso metro"))) ;caso não pertença a nenhuma linha do metro.
+        
+(define (semBaldiacao estacao)
+    (if (mostraEncontro estacao '()) (print "A estacao " estacao "esta na linha(s) " (mostraEncontro estacao '())) (print "A estação " estacao " esta na linha " (alelo estacao '()))))
+
+(semBaldiacao "butanta")
+(semBaldiacao "vilaSonia")
+(semBaldiacao "t") ;exemplo de uma estação que não existe e ou não pertence a nenhuma das 5 linhas.
+
+; Dadas duas estações, identificar o menor caminho (em número de estações) entre elas.
+; Funcao utilizando flags para contar as estacoes.
+(define (locais v w m q flag) 
+    (cond ((and (not (equal? v (car m))) (not (equal? w (car m))) (= flag 0)) (locais v w (cdr m) q flag))
+          ((and (or (equal? v (car m)) (equal? w (car m))) (= flag 0)) (locais v w (cdr m) (cons (car m) q) (+ flag 1)))
+          ((and (not (equal? v (car m))) (not (equal? w (car m))) (= flag 1)) (locais v w (cdr m) (cons (car m) q) flag))
+          ((and (or (equal? v (car m)) (equal? w (car m))) (= flag 1)) (cons (car m) q))
+          (append '( ) q)))
+
+;Definindo a funcao para encontrar o menor caminho.
+(define (oMenorcaminho v w q) (if (> (MostraSembaldeacoes v w) 0)
+ (if (not (equal? (member v) (car q)) #f)) (locais v w (car q) (null) 0) #t (oMenorcaminho v w (cdr q))) 0)
+            
+;Dada uma estação, identificar o menor caminho para chegar ao Mackenzie.
+;Funcao para definir o menor caminho entre uma estacao e o mackenzie.
+(define (menorCaminhoMack v) (oMenorcaminho v "higienopolisMackenzie" (todasLinhas)))
+
+; Chamada do menor caminho entre a estação "vilaSonia" e a estação "higienópolisMackenzie".
+(menorCaminhoMack "butanta" (print "\n"))
+
+;Chamada do menor caminho entre a estação "paulista" e a estação "grajau".
+(oMenorcaminho "paulista" "grajau" (todasLinhas))
